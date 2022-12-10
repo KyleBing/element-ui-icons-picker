@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+   <meta charset="UTF-8">
+   <title>图标查找定位，ElementUI FontAwesome</title>
+   <meta name='description' content="图标快速定位工具，常用图标库，ElementUI-ICON, fontAwesome, icon">
+   <meta name='keywords' content="图标快速定位工具，常用图标库，ElementUI-ICON, fontAwesome, icon">
+   <script src="../../lib/js/vue.min.2.6.10.js"></script>
+   <script src="clipboard.min.js"></script>
+   <link rel="stylesheet" href="icon-frame.css?v=20210707130344">
+   <link rel="stylesheet" href="./icon-fa/font-awesome.min.css">
+   <link rel="stylesheet" href="./icon-ele/ele-icons.min.css">
+   <link rel="stylesheet" href="./icon-ion/ionicons.min.css">
+   <link rel="shortcut icon" href="favicon.png" type="image/png">
+
+</head>
+<body>
+
+<div id="app">
+
+   <div class="header">
+      <div class="search-bar">
+         <input placeholder="class 关键字" type="text" v-model="searchWord">
+         <span @click="toggleCopyClassName" v-if="isCopyClassName" class="tip">点击图标，复制 class 名到剪贴板</span>
+         <span @click="toggleCopyClassName" v-else class="tip">点击图标，复制组件 icon 名到剪贴板</span>
+      </div>
+
+      <div class="switch-bar">
+         <div class="switch" v-for="lib in LIBS" :key="lib.id">
+            <input type="radio" :value="lib.id" v-model="currentLibId" name="lib" :id="lib.id">
+            <label :for="lib.id">
+               <p>{{lib.name}}</p>
+               <span class="badge">{{lib.icons.length}}</span>
+            </label>
+         </div>
+      </div>
+   </div>
+
+   <div class="icon-container">
+      <div :data-clipboard-text="item.clipText"
+           class="icon-item"
+           v-for="(item, index) in iconsShowing"
+           :key="index"
+      >
+            <i :class="item.className"></i>
+            <p>{{ item.name }}</p>
+      </div>
+   </div>
+
+</div>
+
+<script src="./icon-ele/icon-ele.js"></script>
+<script src="./icon-fa/icon-fa.js"></script>
+<script src="./icon-ion/icon-ion.js"></script>
+<script>
+   const app = new Vue({
+      el: '#app',
+      data: {
+         LIBS: [
+            {id: 'ele', name: 'ElementUI', componentPrefix: 'el-icon-', classPrefix: 'el-icon-', icons: ICON_ELE},
+            {id: 'ion', name: 'IonIcon', componentPrefix: '', classPrefix: 'ion-', icons: ICON_ION},
+            {id: 'fa', name: 'FontAwesome', componentPrefix: 'fa-', classPrefix: 'fa fa-', icons: ICON_FA},
+         ],
+         searchWord: null,
+         iconsShowing: [], // 当前显示的图标们
+         currentLibId: 'ele', // 当前图标库标识
+         isCopyClassName: false // 复制 class 名，还是复制组件名
+      },
+      mounted(){
+         document.querySelector('input').focus() // focus on input on init
+         let clipboard = new ClipboardJS('.icon-item')
+         this.filterIcon()
+      },
+      computed:{
+         currentLib(){
+            return this.LIBS.find(item => item.id === this.currentLibId)
+         }
+      },
+      methods: {
+         // 根据搜索词过滤图标
+         filterIcon() {
+            let filteredIcons
+            if (this.searchWord){
+               filteredIcons = this.currentLib.icons.filter(item => new RegExp(this.searchWord,'i').test(item))
+            } else {
+               filteredIcons = this.currentLib.icons
+            }
+            this.iconsShowing = filteredIcons.map (item => { // 将数组映射成对象数组，
+               let prefix = this.isCopyClassName? this.currentLib.classPrefix: this.currentLib.componentPrefix
+               return {
+                  name: item, // 名字
+                  clipText: prefix + item, // 剪贴板的名字
+                  className: this.currentLib.classPrefix + item // 对应的 class 名
+               }
+            })
+         },
+         // 切换复制 class 名，或者组件名
+         toggleCopyClassName(){
+            this.isCopyClassName = !this.isCopyClassName
+            this.filterIcon()
+         }
+      },
+      watch: {
+         searchWord(){
+            this.filterIcon()
+         },
+         currentLibId(){
+            this.filterIcon()
+         }
+      }
+   })
+</script>
+
+<script>
+   setTimeout(()=>{
+      if (location.href.indexOf('http://a.kylebing.cn') !== -1 || location.href.indexOf('http://localhost') !== -1) {
+
+      } else {
+         let hm = document.createElement("script");
+         hm.src = "https://hm.baidu.com/hm.js?ab51e124c49e16398f7c0131d7bca03d";
+         let s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+      }
+   }, 1000)
+</script>
+</body>
+</html>

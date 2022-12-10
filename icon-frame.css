@@ -1,0 +1,166 @@
+/*
+  Extension
+*/
+@import "../../lib/css/reset.css";
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.unselect, input + label, .tip {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#app {
+  position: relative;
+}
+
+.tip {
+  cursor: pointer;
+  margin-left: 30px;
+  font-size: 0.9rem;
+  color: #999;
+}
+.tip:hover {
+  color: #666;
+}
+
+.header {
+  margin-bottom: 10px;
+  padding: 20px 30px;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  background-color: #f3f3f3;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ddd;
+}
+
+.search-bar input {
+  width: 15rem;
+  line-height: 30px;
+  font-size: 1rem;
+  padding: 5px 15px;
+  border: 1px solid #dadada;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.search-bar input:focus {
+  border-color: #409EFF;
+  outline: none;
+}
+
+.switch-bar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+.switch-bar .switch {
+  margin-right: 30px;
+  font-size: 0.8rem;
+}
+
+.icon-container {
+  padding: 30px;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: flex-start;
+}
+
+.icon-item {
+  margin: 0 3px 3px 0;
+  cursor: pointer;
+  text-align: center;
+  width: 5rem;
+  font-size: 2rem;
+  color: #333;
+  padding: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  transition: background 1s, color 1s;
+}
+.icon-item i {
+  transition: inherit;
+}
+.icon-item p {
+  color: transparent;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 5px 0 0 0;
+  font-size: 8px;
+  transition: inherit;
+}
+.icon-item:hover {
+  border-color: #409EFF;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background 1s, color 1s;
+}
+.icon-item:hover p {
+  color: inherit;
+  transition: color 0s;
+  text-overflow: clip;
+  overflow: visible;
+}
+.icon-item:active {
+  background-color: #409EFF;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0s;
+}
+
+.icon {
+  display: block;
+}
+
+label {
+  cursor: pointer;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+input + label {
+  font-size: 1rem;
+  position: relative;
+  display: block;
+  padding: 5px 8px;
+  background-color: white;
+  border: 1px dashed #dadada;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+input + label .badge {
+  z-index: 100;
+  display: block;
+  position: absolute;
+  color: #333;
+  background-color: white;
+  font-size: 0.7rem;
+  transform: translateX(50%) translateY(-50%);
+  right: 0;
+  top: 0;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  border: 1px solid #dadada;
+  padding: 2px 5px;
+}
+
+input:checked + label {
+  color: white;
+  background-color: #409EFF;
+  border: 1px solid #409EFF;
+}
