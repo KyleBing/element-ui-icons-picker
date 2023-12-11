@@ -28,6 +28,10 @@
   color: #666;
 }
 
+a.tip:hover {
+  text-decoration: underline;
+}
+
 .header {
   margin-bottom: 10px;
   padding: 20px 30px;

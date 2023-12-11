@@ -7,7 +7,7 @@
    <meta name='keywords' content="图标快速定位工具，常用图标库，ElementUI-ICON, fontAwesome, icon">
    <script src="../../lib/js/vue.min.2.6.10.js"></script>
    <script src="clipboard.min.js"></script>
-   <link rel="stylesheet" href="icon-frame.css?v=20210707130344">
+   <link rel="stylesheet" href="icon-frame.css?v=20231211173539">
    <link rel="stylesheet" href="./icon-fa/font-awesome.min.css">
    <link rel="stylesheet" href="./icon-ele/ele-icons.min.css">
    <link rel="stylesheet" href="./icon-ion/ionicons.min.css">
@@ -23,6 +23,8 @@
          <input placeholder="class 关键字" type="text" v-model="searchWord">
          <span @click="toggleCopyClassName" v-if="isCopyClassName" class="tip">点击图标，复制 class 名到剪贴板</span>
          <span @click="toggleCopyClassName" v-else class="tip">点击图标，复制组件 icon 名到剪贴板</span>
+
+         <a class="tip" target="_blank" href="https://kylebing.cn/tools/icons-plus"> -> 旧版 Element 图标</a>
       </div>
 
       <div class="switch-bar">
